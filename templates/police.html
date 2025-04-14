@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Dashboard - CCTV Accident Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Police Dashboard</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <span id="current-time"></span>
+            </nav>
+        </header>
+        
+        <div class="dashboard-grid">
+            <div class="cctv-feed">
+                <h2>Live CCTV Feed</h2>
+                <div class="video-container">
+                    <img src="{{ url_for('video_feed') }}" alt="Live CCTV Feed">
+                </div>
+            </div>
+            
+            <div class="accident-alerts">
+                <h2>Accident Alerts</h2>
+                <div id="alerts-container">
+                    <div class="status-indicator">
+                        <span id="status-light" class="status-light"></span>
+                        <span id="status-text">Monitoring...</span>
+                    </div>
+                    
+                    <div id="accident-info" class="hidden">
+                        <div class="alert">
+                            <h3>⚠️ ACCIDENT DETECTED ⚠️</h3>
+                            <p id="accident-time"></p>
+                            <p id="accident-location"></p>
+                            <p id="accident-details"></p>
+                        </div>
+                        
+                        <div id="accident-image-container" class="hidden">
+                            <h3>Accident Image</h3>
+                            <img id="accident-image" src="" alt="Accident Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <h2>Accident Location</h2>
+                <div id="map"></div>
+            </div>
+            
+            <div class="alert-history">
+                <h2>Alert History</h2>
+                <div id="history-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <!-- Alert history will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 CCTV Accident Detection System - Police Dashboard</p>
+        </footer>
+    </div>
+    
+    <audio id="alert-sound" src="{{ url_for('static', filename='sounds/alert.mp3') }}"></audio>
+    
+    <script src="{{ url_for('static', filename='js/police.js') }}"></script>
+</body>
+</html>

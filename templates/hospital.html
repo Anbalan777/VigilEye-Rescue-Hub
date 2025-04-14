@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard - CCTV Accident Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Hospital Emergency Dashboard</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <span id="current-time"></span>
+            </nav>
+        </header>
+        
+        <div class="dashboard-grid hospital-grid">
+            <div class="accident-alerts">
+                <h2>Incoming Emergency Alerts</h2>
+                <div id="alerts-container">
+                    <div class="status-indicator">
+                        <span id="status-light" class="status-light"></span>
+                        <span id="status-text">Monitoring...</span>
+                    </div>
+                    
+                    <div id="accident-info" class="hidden">
+                        <div class="alert">
+                            <h3>⚠️ EMERGENCY: ACCIDENT REPORTED ⚠️</h3>
+                            <p id="accident-time"></p>
+                            <p id="accident-location"></p>
+                            <p id="accident-details"></p>
+                            <p id="estimated-arrival-time"></p>
+                        </div>
+                        
+                        <div id="accident-image-container" class="hidden">
+                            <h3>Accident Image</h3>
+                            <img id="accident-image" src="" alt="Accident Image">
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="dispatch-ambulance" class="btn btn-primary">Dispatch Ambulance</button>
+                            <button id="acknowledge-alert" class="btn btn-secondary">Acknowledge</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <h2>Accident Location & Route</h2>
+                <div id="hospital-map"></div>
+                <div class="route-info">
+                    <p>Distance to accident: <span id="distance-to-accident">Calculating...</span></p>
+                    <p>Estimated arrival time: <span id="eta">Calculating...</span></p>
+                </div>
+            </div>
+            
+            <div class="ambulance-status">
+                <h2>Ambulance Status</h2>
+                <div class="status-cards">
+                    <div class="status-card available">
+                        <h3>Available Units</h3>
+                        <div class="status-count" id="available-count">3</div>
+                    </div>
+                    <div class="status-card dispatched">
+                        <h3>Dispatched Units</h3>
+                        <div class="status-count" id="dispatched-count">1</div>
+                    </div>
+                </div>
+                <div class="ambulance-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Unit ID</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                                <th>ETA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ambulance-table-body">
+                            <!-- Ambulance data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="alert-history">
+                <h2>Alert History</h2>
+                <div id="history-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Response</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <!-- Alert history will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 CCTV Accident Detection System - Hospital Dashboard</p>
+        </footer>
+    </div>
+    
+    <audio id="alert-sound" src="{{ url_for('static', filename='sounds/alert.mp3') }}"></audio>
+    
+    <script src="{{ url_for('static', filename='js/hospital.js') }}"></script>
+</body>
+</html>

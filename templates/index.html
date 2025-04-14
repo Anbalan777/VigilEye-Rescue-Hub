@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV Accident Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CCTV Accident Detection System</h1>
+        </header>
+        
+        <main>
+            <div class="card">
+                <h2>Welcome to the Accident Detection System</h2>
+                <p>This intelligent system monitors CCTV feeds to detect accidents in real-time and automatically alerts emergency services.</p>
+                <p>The system uses advanced AI to identify vehicle accidents and collisions, sending immediate notifications to police and nearby hospitals.</p>
+                
+                <div class="features">
+                    <h3>Key Features:</h3>
+                    <ul>
+                        <li>Real-time accident detection using AI</li>
+                        <li>Automatic alerts to emergency responders</li>
+                        <li>Location mapping and route calculation</li>
+                        <li>Video evidence capture and storage</li>
+                    </ul>
+                </div>
+                
+                <div class="buttons">
+                    <a href="{{ url_for('police_dashboard') }}" class="btn">Police Dashboard</a>
+                    <a href="{{ url_for('hospital_dashboard') }}" class="btn">Hospital Dashboard</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>How It Works</h2>
+                <div class="how-it-works">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Detection</h4>
+                            <p>AI-powered computer vision analyzes CCTV footage in real-time to detect accidents and collisions.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Notification</h4>
+                            <p>Upon detection, the system immediately sends alerts to police and the nearest hospital.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Response</h4>
+                            <p>Emergency services receive location data, accident footage, and can coordinate rapid response.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 CCTV Accident Detection System</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Simple animation for the how-it-works steps
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.classList.add('active');
+                }, 300 * (index + 1));
+            });
+        });
+    </script>
+</body>
+</html>
