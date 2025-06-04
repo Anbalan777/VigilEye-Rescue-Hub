@@ -1,9 +1,18 @@
-from flask import Flask, render_template, Response, jsonify, request
-import cv2
-import time
-import os
-import json
-from ultralytics import YOLO
-import threading
-import datetime
-import requests
+# Flask web framework
+Flask==2.3.3
+
+# OpenCV for video processing
+opencv-python-headless==4.9.0.80
+
+# Ultralytics YOLO model
+ultralytics==8.1.25
+
+# Requests for HTTP requests
+requests==2.31.0
+
+# Gunicorn for production WSGI server (required by Render for Flask apps)
+gunicorn==21.2.0
+
+# Optional: If your model uses torch and torchvision
+torch==2.1.0
+torchvision==0.16.0
