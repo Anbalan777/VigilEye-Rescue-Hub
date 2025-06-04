@@ -1,18 +1,7 @@
-# Flask web framework
 Flask==2.3.3
-
-# OpenCV for video processing
-opencv-python-headless==4.9.0.80
-
-# Ultralytics YOLO model
-ultralytics==8.1.25
-
-# Requests for HTTP requests
-requests==2.31.0
-
-# Gunicorn for production WSGI server (required by Render for Flask apps)
 gunicorn==21.2.0
-
-# Optional: If your model uses torch and torchvision
+ultralytics==8.1.25
+opencv-python-headless==4.9.0.80
+requests==2.31.0
 torch==2.1.0
 torchvision==0.16.0
