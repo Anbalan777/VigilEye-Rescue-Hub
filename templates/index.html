@@ -152,9 +152,9 @@
             width: 100%;
             max-width: 800px;
             border-radius: var(--border-radius);
-            overflow: hidden;
+            overflow: visible;
             box-shadow: var(--box-shadow);
-        }
+        } 
         
         .hero-image img {
             width: 100%;
@@ -481,8 +481,8 @@
                 <a href="#contact">Contact</a>
             </nav>
             <div class="auth-buttons" id="authButtons">
-                <a href="login.html" class="btn btn-outline">Login</a>
-                <a href="register.html" class="btn btn-primary">Register</a>
+                <a href="{{ url_for('hospital_login') }}" class="btn btn-outline">Login</a>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -495,10 +495,10 @@
             <div class="hero-buttons">
                 <a href="{{ url_for('police_dashboard') }}" class="btn btn-primary">Police Dashboard</a>
                 <a href="{{ url_for('hospital_dashboard') }}" class="btn btn-outline">Hospital Dashboard</a>
-                <a href="admin/login.html" class="btn btn-outline">Admin Access</a>
+                <a href="hospital_login.html" class="btn btn-outline">Admin Access</a>
             </div>
             <div class="hero-image">
-                <img src="https://designerapp.officeapps.live.com/designerapp/document.ashx?path=/2ef8d2f4-ae14-4760-9470-bd685870aa12/DallEGeneratedImages/dalle-36bfeede-e212-4b07-aa94-a5c4fe1f3a060251657639075960485400.jpg&dcHint=KoreaCentral&fileToken=95072959-827f-40b6-933d-ad42523bfc3f" alt="CCTV Accident Detection System">
+                <img src="road_cars_buildings_1030649_1366x768.jpg">
             </div>
         </section>
         
