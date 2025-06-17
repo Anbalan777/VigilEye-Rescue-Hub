@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response, jsonify, request
+from flask import Flask, render_template, Response, jsonify, request,redirect,url_for
 import cv2
 import time
 import os
@@ -144,6 +144,16 @@ def generate_frames():
 def index():
     return render_template('index.html')
 
+@app.route('/hospital_login')
+def hospital_login():
+    return render_template('hospital_login.html')
+
+@app.route('/register')
+def register():
+    if request.method== 'POST':
+         return redirect(url_for('hospital_login.html'))
+    return render_template('register.html')
+
 @app.route('/police')
 def police_dashboard():
     return render_template('police.html')
@@ -151,6 +161,10 @@ def police_dashboard():
 @app.route('/hospital')
 def hospital_dashboard():
     return render_template('hospital.html')
+
+
+
+
 
 @app.route('/video_feed')
 def video_feed():
