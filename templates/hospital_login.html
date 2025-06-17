@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - AccidentSense AI</title>
+  <style>
+    :root {
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --bg-tertiary: #2d2d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #b3b3b3;
+      --accent-primary: #007bff;
+      --accent-secondary: #0056b3;
+      --danger: #dc3545;
+      --success: #28a745;
+      --warning: #ffc107;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+      --border-radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--bg-secondary);
+      padding: 1rem 2rem;
+      box-shadow: var(--box-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+    }
+
+    header h1 span {
+      margin-right: 10px;
+      color: var(--accent-primary);
+      font-size: 1.5rem;
+    }
+
+    .login-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .login-form {
+      background-color: var(--bg-secondary);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .login-form h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--bg-tertiary);
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: var(--border-radius);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 1rem;
+      text-align: center;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-primary);
+      color: white;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-secondary);
+    }
+
+    .form-footer {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .form-footer a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .alert {
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+    }
+
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+
+    .login-type-selector {
+      display: flex;
+      margin-bottom: 1.5rem;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: 1px solid var(--bg-tertiary);
+    }
+
+    .login-type-btn {
+      flex: 1;
+      padding: 0.8rem;
+      text-align: center;
+      background-color: var(--bg-tertiary);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .login-type-btn.active {
+      background-color: var(--accent-primary);
+      color: white;
+    }
+
+    footer {
+      background-color: var(--bg-tertiary);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><span>🎥</span> <a href="/" style="text-decoration: none; color: inherit;">AccidentSense AI</a></h1>
+  </header>
+
+  <div class="login-container">
+    <div class="login-form">
+      <h2>Login</h2>
+
+      <div id="errorAlert" class="alert alert-danger" style="display: none;">
+        Invalid email or password.
+      </div>
+
+      <div class="login-type-selector">
+        <div class="login-type-btn active" id="hospitalLoginBtn">Hospital</div>
+        <div class="login-type-btn" id="policeLoginBtn">Police</div>
+        <div class="login-type-btn" id="adminLoginBtn">Admin</div>
+      </div>
+
+      <form id="loginForm" action="/login" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <input type="hidden" id="userType" name="user_type" value="hospital">
+
+        <button type="submit" class="btn btn-primary">Login</button>
+
+        <div class="form-footer">
+          <p>Don't have an account? <a href="register.html">Register</a></p>
+          <p><a href="reset-password.html">Forgot Password?</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AccidentSense AI - CCTV Accident Detection System</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hospitalBtn = document.getElementById('hospitalLoginBtn');
+      const policeBtn = document.getElementById('policeLoginBtn');
+      const adminBtn = document.getElementById('adminLoginBtn');
+      const userTypeInput = document.getElementById('userType');
+      const loginForm = document.getElementById('loginForm');
+
+      hospitalBtn.addEventListener('click', function () {
+        setActiveButton(hospitalBtn);
+        userTypeInput.value = 'hospital';
+      });
+
+      policeBtn.addEventListener('click', function () {
+        setActiveButton(policeBtn);
+        userTypeInput.value = 'police';
+      });
+
+      adminBtn.addEventListener('click', function () {
+        setActiveButton(adminBtn);
+        userTypeInput.value = 'admin';
+      });
+
+      function setActiveButton(button) {
+        hospitalBtn.classList.remove('active');
+        policeBtn.classList.remove('active');
+        adminBtn.classList.remove('active');
+        button.classList.add('active');
+      }
+
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const userType = userTypeInput.value;
+
+        // Simulated redirect for demo
+        if (userType === 'hospital') {
+          window.location.href = '/hospital';
+        } else if (userType === 'police') {
+          window.location.href = '/police';
+        } else if (userType === 'admin') {
+          window.location.href = '/admin/dashboard';
+        }
+
+        // Show error if needed
+        // document.getElementById('errorAlert').style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
