@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AccidentSense AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-primary: #007bff;
+            --accent-secondary: #0056b3;
+            --danger: #dc3545;
+            --success: #28a745;
+            --warning: #ffc107;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: var(--bg-secondary);
+            padding: 1rem 2rem;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        header h1 i {
+            margin-right: 10px;
+            color: var(--accent-primary);
+        }
+        
+        .register-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .register-form {
+            background-color: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 650px;
+            margin: 2rem 0;
+        }
+        
+        .register-form h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1 0 calc(50% - 0.5rem);
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--bg-tertiary);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1rem;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-primary);
+            color: white;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-secondary);
+        }
+        
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .alert {
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+        }
+        
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .registration-type-selector {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--bg-tertiary);
+        }
+        
+        .registration-type-btn {
+            flex: 1;
+            padding: 0.8rem;
+            text-align: center;
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .registration-type-btn.active {
+            background-color: var(--accent-primary);
+            color: white;
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--bg-tertiary);
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+        }
+        
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-row .form-group {
+                flex: 1 0 100%;
+            }
+            
+            .register-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-video"></i> <a href="/" style="text-decoration: none; color: inherit;">AccidentSense AI</a></h1>
+    </header>
+    
+    <div class="register-container">
+        <div class="register-form">
+            <h2>Registration</h2>
+            
+            <div id="successAlert" class="alert alert-success" style="display: none;">
+                Registration successful! You will be redirected to login.
+            </div>
+            
+            <div id="errorAlert" class="alert alert-danger" style="display: none;">
+                Error in registration. Please try again.
+            </div>
+            
+            <div class="registration-type-selector">
+                <div class="registration-type-btn active" id="hospitalRegBtn">Hospital</div>
+                <div class="registration-type-btn" id="policeRegBtn">Police Department</div>
+            </div>
+            
+            <!-- Hospital Registration Form -->
+            <form id="hospitalRegistrationForm" class="form-section active" action="/register" method="POST">
+                <input type="hidden" name="user_type" value="hospital">
+                
+                <div class="form-group">
+                    <label for="hospitalName">Hospital Name *</label>
+                    <input type="text" id="hospitalName" name="hospital_name" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalEmail">Email Address *</label>
+                        <input type="email" id="hospitalEmail" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospitalPhone">Phone Number *</label>
+                        <input type="tel" id="hospitalPhone" name="phone" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hospitalAddress">Street Address *</label>
+                    <input type="text" id="hospitalAddress" name="address" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalCity">City *</label>
+                        <input type="text" id="hospitalCity" name="city" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospitalState">State/Province *</label>
+                        <input type="text" id="hospitalState" name="state" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalZip">ZIP/Postal Code *</label>
+                        <input type="text" id="hospitalZip" name="zipcode" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospitalCountry">Country *</label>
+                        <input type="text" id="hospitalCountry" name="country" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hospitalType">Hospital Type *</label>
+                    <select id="hospitalType" name="hospital_type" class="form-control" required>
+                        <option value="">Select Hospital Type</option>
+                        <option value="general">General Hospital</option>
+                        <option value="specialized">Specialized Hospital</option>
+                        <option value="teaching">Teaching Hospital</option>
+                        <option value="clinic">Clinic/Medical Center</option>
+                        <option value="trauma">Trauma Center</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emergencyContact">Emergency Department Contact Person *</label>
+                    <input type="text" id="emergencyContact" name="emergency_contact" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="emergencyPhone">Emergency Department Phone *</label>
+                        <input type="tel" id="emergencyPhone" name="emergency_phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bedsAvailable">Number of Emergency Beds</label>
+                        <input type="number" id="bedsAvailable" name="beds_available" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="coordinates">GPS Coordinates (for accurate location mapping)</label>
+                    <input type="text" id="coordinates" name="coordinates" class="form-control" placeholder="e.g. 40.7128,-74.0060">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalPassword">Password *</label>
+                        <input type="password" id="hospitalPassword" name="password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospitalPasswordConfirm">Confirm Password *</label>
+                        <input type="password" id="hospitalPasswordConfirm" name="password_confirm" class="form-control" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Register Hospital</button>
+            </form>
+            
+            <!-- Police Department Registration Form -->
+            <form id="policeRegistrationForm" class="form-section" action="/register" method="POST">
+                <input type="hidden" name="user_type" value="police">
+                
+                <div class="form-group">
+                    <label for="policeName">Police Department Name *</label>
+                    <input type="text" id="policeName" name="police_name" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="policeEmail">Email Address *</label>
+                        <input type="email" id="policeEmail" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="policePhone">Phone Number *</label>
+                        <input type="tel" id="policePhone" name="phone" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="policeAddress">Street Address *</label>
+                    <input type="text" id="policeAddress" name="address" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="policeCity">City *</label>
+                        <input type="text" id="policeCity" name="city" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="policeState">State/Province *</label>
+                        <input type="text" id="policeState" name="state" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="policeZip">ZIP/Postal Code *</label>
+                        <input type="text" id="policeZip" name="zipcode" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="policeCountry">Country *</label>
+                        <input type="text" id="policeCountry" name="country" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jurisdictionArea">Jurisdiction Area *</label>
+                    <input type="text" id="jurisdictionArea" name="jurisdiction_area" class="form-control" required placeholder="e.g. Downtown, North District, etc.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="emergencyContactPolice">Emergency Contact Person *</label>
+                    <input type="text" id="emergencyContactPolice" name="emergency_contact" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emergencyPhonePolice">Emergency Contact Phone *</label>
+                    <input type="tel" id="emergencyPhonePolice" name="emergency_phone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="coordinatesPolice">GPS Coordinates (for accurate location mapping)</label>
+                    <input type="text" id="coordinatesPolice" name="coordinates" class="form-control" placeholder="e.g. 40.7128,-74.0060">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="policePassword">Password *</label>
+                        <input type="password" id="policePassword" name="password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="policePasswordConfirm">Confirm Password *</label>
+                        <input type="password" id="policePasswordConfirm" name="password_confirm" class="form-control" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Register Police Department</button>
+            </form>
+            
+            <div class="form-footer">
+                <p>Already have an account? <a href="{{ url_for('hospital_login') }}">Login</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 AccidentSense AI - CCTV Accident Detection System</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hospitalRegBtn = document.getElementById('hospitalRegBtn');
+            const policeRegBtn = document.getElementById('policeRegBtn');
+            const hospitalForm = document.getElementById('hospitalRegistrationForm');
+            const policeForm = document.getElementById('policeRegistrationForm');
+            
+            // Registration type selector functionality
+            hospitalRegBtn.addEventListener('click', function() {
+                setActiveRegistration(hospitalRegBtn, hospitalForm);
+            });
+            
+            policeRegBtn.addEventListener('click', function() {
+                setActiveRegistration(policeRegBtn, policeForm);
+            });
+            
+            function setActiveRegistration(button, form) {
+                // Remove active class from all buttons and forms
+                hospitalRegBtn.classList.remove('active');
+                policeRegBtn.classList.remove('active');
+                hospitalForm.classList.remove('active');
+                policeForm.classList.remove('active');
+                
+                // Add active class to clicked button and form
+                button.classList.add('active');
+                form.classList.add('active');
+            }
+            
+            // Hospital form submission
+            hospitalForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // In a real app, this would make an AJAX request to the server
+                // For demo, we'll just show the success message and redirect
+                
+                // Validate password matching
+                const password = document.getElementById('hospitalPassword').value;
+                const confirmPassword = document.getElementById('hospitalPasswordConfirm').value;
+                
+                if (password !== confirmPassword) {
+                    document.getElementById('errorAlert').textContent = "Passwords do not match.";
+                    document.getElementById('errorAlert').style.display = 'block';
+                    document.getElementById('successAlert').style.display = 'none';
+                    return;
+                }
+                
+                // Show success message
+                document.getElementById('successAlert').style.display = 'block';
+                document.getElementById('errorAlert').style.display = 'none';
+                
+                // Redirect after delay
+                setTimeout(function() {
+                    window.location.href = 'login.html';
+                }, 2000);
+            });
+            
+            // Police form submission
+            policeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate password matching
+                const password = document.getElementById('policePassword').value;
+                const confirmPassword = document.getElementById('policePasswordConfirm').value;
+                
+                if (password !== confirmPassword) {
+                    document.getElementById('errorAlert').textContent = "Passwords do not match.";
+                    document.getElementById('errorAlert').style.display = 'block';
+                    document.getElementById('successAlert').style.display = 'none';
+                    return;
+                }
+                
+                // Show success message
+                document.getElementById('successAlert').style.display = 'block';
+                document.getElementById('errorAlert').style.display = 'none';
+                
+                // Redirect after delay
+                setTimeout(function() {
+                    window.location.href = 'login.html';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
