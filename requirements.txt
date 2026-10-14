@@ -1,7 +1,6 @@
+
 Flask
 gunicorn
 ultralytics
-opencv-python
+opencv-python-headless
 requests
-torch
-torchvision
